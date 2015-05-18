@@ -1,0 +1,13 @@
+{
+  "name": "web",
+  "description": "All things needed to server a website",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[site-ruby]",
+    "recipe[site-app]"
+  ],
+  "default_attributes": {
+    "domain": "miscia.net"
+  }
+}

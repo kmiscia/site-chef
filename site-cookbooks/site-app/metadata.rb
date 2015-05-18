@@ -1,0 +1,13 @@
+name             'site-app'
+maintainer       'Kevin Miscia'
+maintainer_email 'kmiscia@miscia.net'
+license          'All rights reserved'
+description      'Gets the site app from github and deploys it'
+version          '0.1.0'
+
+depends 'build-essential', '~> 2.2.3'
+depends 'apache2'
+depends 'git'
+#depends 'sphinx'
+depends 'rails'
+depends 'passenger_apache2'

@@ -1,0 +1,1 @@
+default[:site_apache][:root] = "/apps/site"
