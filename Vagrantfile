@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   # If this value is a shorthand to a box in Vagrant Cloud then
   # config.vm.box_url doesn't need to be specified.
-  config.vm.box = 'chef/ubuntu-14.04'
+  config.vm.box = 'hashicorp/precise64'
 
 
   # Assign this VM to a host-only network IP, allowing you to access it
@@ -79,10 +79,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
     chef.roles_path = 'roles'
     chef.data_bags_path = 'data_bags'
-        
-    chef.add_role('web')
+    
+    chef.add_role('server')
     chef.add_role('database')    
-        
+    chef.add_role('web')
+            
     chef.json = {
       mysql: {
         server_root_password: 'rootpass',

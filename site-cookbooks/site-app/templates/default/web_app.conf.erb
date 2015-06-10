@@ -1,6 +1,6 @@
 <VirtualHost *:80>
   
-        DocumentRoot <%= node[:site_apache][:root] %>/public
+        DocumentRoot <%= node[:site_app][:root] %>/public
         <Directory />
                 Options FollowSymLinks
                 AllowOverride None
@@ -20,13 +20,13 @@
                 Allow from all
         </Directory>
 
-        ErrorLog <%= node[:apache][:log_dir] %>/error.log
+        ErrorLog /var/log/apache2/error.log
 
         # Possible values include: debug, info, notice, warn, error, crit,
         # alert, emerg.
         LogLevel warn
         
-        CustomLog <%= node[:apache][:log_dir] %>/access.log combined
+        CustomLog /var/log/apache2/access.log combined
 
         RailsEnv production
 

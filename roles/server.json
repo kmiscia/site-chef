@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "description": "Basic add-ons for a web hosting server",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[site-utils]",
+    "recipe[site-vim]",
+    "recipe[site-ruby]"
+  ],
+  "default_attributes": {
+    "domain": "miscia.net"
+  }
+}

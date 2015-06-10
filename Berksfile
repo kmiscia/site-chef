@@ -2,6 +2,9 @@ source "https://supermarket.chef.io"
 
 metadata
 
+cookbook 'site-vim', path: './site-cookbooks/site-vim'
 cookbook 'site-ruby', path: './site-cookbooks/site-ruby'
-cookbook 'site-apache', path: './site-cookbooks/site-apache'
+cookbook 'site-postgres', path: './site-cookbooks/site-postgres'
 cookbook 'site-app', path: './site-cookbooks/site-app'
+cookbook 'site-utils', path: './site-cookbooks/site-utils'
+cookbook "sphinx", github: "kmiscia/sphinx-cookbook", tag: "v1.1.1"

@@ -4,6 +4,7 @@
   "json_class": "Chef::Role",
   "chef_type": "role",
   "run_list": [
+    "recipe[site-postgres]"
   ],
   "default_attributes": {
   }
