@@ -1,0 +1,10 @@
+name             'site-utils'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures site-utils'
+long_description 'Installs/Configures site-utils'
+version          '0.1.0'
+
+depends 'build-essential', '~> 2.2.3'
+depends 'git'
