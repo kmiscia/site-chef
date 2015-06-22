@@ -10,8 +10,9 @@
 include_recipe 'rails'
 include_recipe 'passenger_apache2'
 include_recipe 'imagemagick::rmagick'
-
 include_recipe 'sphinx'
+include_recipe 'redis::install_from_package'
+include_recipe 'resque'
 
 # Some dependency requires V8 JS engine
 # to be installed and isnt' install it? 
@@ -21,8 +22,8 @@ include_recipe 'nodejs'
 ENV['RAILS_ENV'] = node[:site_app][:environment]
 
 directory "/apps/site" do
-  owner 'root'
-  group 'root'
+  owner 'www-data'
+  group 'www-data'
   mode '0755'
   action :create
   recursive true

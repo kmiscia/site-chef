@@ -14,6 +14,8 @@ depends 'sphinx'
 depends 'rails'
 depends 'passenger_apache2'
 depends 'imagemagick'
+depends 'resque'
+depends 'redis'
 
 # Some dependency requires V8 and doesn't install it?
 # Just install it for now...
