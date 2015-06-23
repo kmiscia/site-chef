@@ -97,6 +97,7 @@ GRAPH
     nodejs (>= 0.0.0)
     passenger_apache2 (>= 0.0.0)
     rails (>= 0.0.0)
+    redis (>= 0.0.0)
     resque (>= 0.0.0)
     sphinx (>= 0.0.0)
   site-postgres (0.1.0)

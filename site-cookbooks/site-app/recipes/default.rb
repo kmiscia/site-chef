@@ -21,6 +21,28 @@ include_recipe 'nodejs'
 
 ENV['RAILS_ENV'] = node[:site_app][:environment]
 
+template '/etc/init/resque.conf' do
+  source 'resque.conf.erb'
+  owner 'www-data'
+  group 'www-data'
+  mode 0664
+  variables node[:connect]
+  notifies :restart, 'service[resque]'
+end
+
+service 'resque' do
+  provider Chef::Provider::Service::Upstart
+  supports status: true, start: true, stop: true, restart: true
+  action [ :enable, :start ]
+end
+
+file "/var/log/resque.log" do
+  owner 'www-data'
+  group 'www-data'
+  mode '0755'
+  action :create
+end
+
 directory "/apps/site" do
   owner 'www-data'
   group 'www-data'
@@ -34,6 +56,8 @@ git "#{Chef::Config[:file_cache_path]}/site" do
   revision node[:site_app][:revision]
   destination node[:site_app][:root]
   action :sync
+  user 'www-data'
+  group 'www-data'
 end
 
 execute "install gems" do
