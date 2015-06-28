@@ -7,4 +7,6 @@ cookbook 'site-ruby', path: './site-cookbooks/site-ruby'
 cookbook 'site-postgres', path: './site-cookbooks/site-postgres'
 cookbook 'site-app', path: './site-cookbooks/site-app'
 cookbook 'site-utils', path: './site-cookbooks/site-utils'
+cookbook 'site-resque', path: './site-cookbooks/site-resque'
+cookbook 'site-sphinx', path: './site-cookbooks/site-sphinx'
 cookbook "sphinx", github: "kmiscia/sphinx-cookbook", tag: "v1.1.1"

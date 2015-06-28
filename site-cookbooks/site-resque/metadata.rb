@@ -1,0 +1,10 @@
+name             'site-resque'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures site-resque'
+long_description 'Installs/Configures site-resque'
+version          '0.1.0'
+
+depends 'resque'
+depends 'redis'

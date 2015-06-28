@@ -10,58 +10,13 @@
 include_recipe 'rails'
 include_recipe 'passenger_apache2'
 include_recipe 'imagemagick::rmagick'
-include_recipe 'sphinx'
-include_recipe 'redis::install_from_package'
-include_recipe 'resque'
 
-# Some dependency requires V8 JS engine
-# to be installed and isnt' install it? 
-# Just install it for now...
+# Some dependency/process requires a JS engine to 
+# be installed. Just install nodejs for now. There
+# may be lighter solutions than including all of nodejs
 include_recipe 'nodejs'
 
 ENV['RAILS_ENV'] = node[:site_app][:environment]
-
-file "/var/log/resque.log" do
-  owner 'www-data'
-  group 'www-data'
-  mode '0755'
-  action :create
-end
-
-template '/etc/init/resque.conf' do
-  source 'resque.conf.erb'
-  owner 'www-data'
-  group 'www-data'
-  mode 0664
-  notifies :restart, 'service[resque]'
-end
-
-service 'resque' do
-  provider Chef::Provider::Service::Upstart
-  supports status: true, start: true, stop: true, restart: true
-  action [ :enable, :start ]
-end
-
-file "/var/log/thinking_sphinx.log" do
-  owner 'www-data'
-  group 'www-data'
-  mode '0755'
-  action :create
-end
-
-template '/etc/init/thinking_sphinx.conf' do
-  source 'thinking_sphinx.conf.erb'
-  owner 'www-data'
-  group 'www-data'
-  mode 0664
-  notifies :restart, 'service[thinking_sphinx]'
-end
-
-service 'thinking_sphinx' do
-  provider Chef::Provider::Service::Upstart
-  supports status: true, start: true, stop: true, restart: true
-  action [ :enable, :start ]
-end
 
 directory "/apps/site" do
   owner 'www-data'
@@ -92,13 +47,6 @@ web_app "site" do
   rails_env ENV['RAILS_ENV']
 end
 
-file "#{node[:site_app][:root]}/log/development.log" do
-  owner 'www-data'
-  group 'www-data'
-  mode '0666'
-  action :create_if_missing
-end
-
 file "#{node[:site_app][:root]}/log/production.log" do
   owner 'www-data'
   group 'www-data'
@@ -120,26 +68,9 @@ execute "seed db" do
   command "#{node[:ruby][:dir]}/bin/bundle exec rake db:seed"
 end
 
-mysql_service 'sphinx_mysql_service' do
-  port '3306'
-  # The latest version supported on Ubuntu 12.04 
-  # by this cookbook is 5.5
-  version '5.5' 
-  initial_root_password 'changeme'
-  action [:create, :start]
-end
-
 execute "precompile rails assets" do
   cwd node[:site_app][:root]
   user 'www-data'
   group 'www-data'
   command "#{node[:ruby][:dir]}/bin/bundle exec rake assets:precompile RAILS_ENV=#{ENV['RAILS_ENV']}"
 end
-
-execute "build the sphinx indexes" do
-  cwd node[:site_app][:root]
-  user 'www-data'
-  group 'www-data'
-  command "#{node[:ruby][:dir]}/bin/bundle exec rake ts:rebuild RAILS_ENV=#{ENV['RAILS_ENV']}"
-end
-

@@ -4,7 +4,9 @@
   "json_class": "Chef::Role",
   "chef_type": "role",
   "run_list": [
-    "recipe[site-app]"
+    "recipe[site-app]",
+    "recipe[site-resque]",
+    "recipe[site-sphinx]"
   ],
   "default_attributes": {
     "domain": "miscia.net"
