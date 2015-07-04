@@ -10,6 +10,7 @@
 include_recipe 'rails'
 include_recipe 'passenger_apache2'
 include_recipe 'imagemagick::rmagick'
+include_recipe 'site-app::backup'
 
 # Some dependency/process requires a JS engine to 
 # be installed. Just install nodejs for now. There
@@ -74,3 +75,4 @@ execute "precompile rails assets" do
   group 'www-data'
   command "#{node[:ruby][:dir]}/bin/bundle exec rake assets:precompile RAILS_ENV=#{ENV['RAILS_ENV']}"
 end
+
