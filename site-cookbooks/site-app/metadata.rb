@@ -8,6 +8,7 @@ version          '0.1.0'
 depends 'rails'
 depends 'passenger_apache2'
 depends 'imagemagick'
+depends 'cron'
 
 # Some dependency/process requires a JS engine to 
 # be installed. Just install nodejs for now. There
