@@ -5,7 +5,7 @@ default[:site_app][:repository] = 'git://github.com/kmiscia/site2.git'
 default[:site_app][:version] = 'master'
 default[:site_app][:environment] = 'production'
 
-default[:backup][:mode] = 'misciadotnetbackup'
+default[:backup][:model] = 'misciadotnetbackup'
 default[:backup][:hour] = 3
 default[:backup][:minute] = 0
 
