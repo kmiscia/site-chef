@@ -46,3 +46,12 @@ execute "build the sphinx indexes" do
   group 'www-data'
   command "#{node[:ruby][:dir]}/bin/bundle exec rake ts:rebuild RAILS_ENV=#{ENV['RAILS_ENV']}"
 end
+
+include_recipe 'cron'
+
+cron_d 'reindex_sphinx' do
+  minute node[:sphinx][:reindex_minute]
+  hour node[:sphinx][:reindex_hour]
+  command "cd #{node[:site_app][:root]} && bundle exec rake ts:rebuild RAILS_ENV=production"
+  user 'www-data'
+end
