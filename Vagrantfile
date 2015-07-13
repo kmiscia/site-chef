@@ -74,6 +74,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # to skip installing and copying to Vagrant's shelf.
   # config.berkshelf.except = []
 
+  config.vm.provision "file", source: "/Users/kmiscia/Workspace/site2/config/encryption/site_production.iv", destination: "~/site_production.iv"
+  config.vm.provision "file", source: "/Users/kmiscia/Workspace/site2/config/encryption/site_production.key", destination: "~/site_production.key"
+
   config.vm.provision :chef_solo do |chef|
     
     chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
@@ -83,6 +86,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_role('server')
     chef.add_role('database')    
     chef.add_role('web')
+            
+    chef.log_level = :debug        
             
     chef.json = {
       mysql: {

@@ -2,7 +2,7 @@ default['postgresql']['password']['postgres'] = '50ce1017bb2e1ec822fbe3eea2cfad1
 
 default['postgresql']['database'] = "site_production"
 default['postgresql']['user']['name'] = "misciadotnet"
-default['postgresql']['user']['password'] = "m1sc1a"
+default['postgresql']['user']['password'] = "cornactuallysoundsgood"
 
 # Allow connections from outside as well as locally
 default['postgresql']['config']['listen_addresses'] = '*'

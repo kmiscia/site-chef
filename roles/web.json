@@ -6,9 +6,14 @@
   "run_list": [
     "recipe[site-app]",
     "recipe[site-resque]",
-    "recipe[site-sphinx]"
+    "recipe[sphinx]",
+    "recipe[site-thinking-sphinx]"
   ],
   "default_attributes": {
-    "domain": "miscia.net"
+    "domain": "miscia.net",
+    "sphinx": {
+      "use_mysql": true,
+      "use_postgres": true
+    }
   }
 }

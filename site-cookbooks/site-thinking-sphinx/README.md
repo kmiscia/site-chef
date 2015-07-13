@@ -1,4 +1,4 @@
-# site-sphinx-cookbook
+# site-thinking-sphinx-cookbook
 
 TODO: Enter the cookbook description here.
 
@@ -16,7 +16,7 @@ TODO: List your supported platforms.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['site-sphinx']['bacon']</tt></td>
+    <td><tt>['site-thinking-sphinx']['bacon']</tt></td>
     <td>Boolean</td>
     <td>whether to include bacon</td>
     <td><tt>true</tt></td>
@@ -25,14 +25,14 @@ TODO: List your supported platforms.
 
 ## Usage
 
-### site-sphinx::default
+### site-thinking-sphinx::default
 
-Include `site-sphinx` in your node's `run_list`:
+Include `site-thinking-sphinx` in your node's `run_list`:
 
 ```json
 {
   "run_list": [
-    "recipe[site-sphinx::default]"
+    "recipe[site-thinking-sphinx::default]"
   ]
 }
 ```

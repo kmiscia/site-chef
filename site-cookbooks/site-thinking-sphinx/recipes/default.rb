@@ -1,14 +1,11 @@
 #
-# Cookbook Name:: site-sphinx
+# Cookbook Name:: site-thinking-sphinx
 # Recipe:: default
 #
 # Copyright (C) 2015 YOUR_NAME
 #
 # All rights reserved - Do Not Redistribute
 #
-
-include_recipe 'sphinx'
-
 file "/var/log/thinking_sphinx.log" do
   owner 'www-data'
   group 'www-data'

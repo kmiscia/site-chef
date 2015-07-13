@@ -7,15 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'rails'
-include_recipe 'passenger_apache2'
-include_recipe 'imagemagick::rmagick'
-include_recipe 'site-app::backup'
-
 # Some dependency/process requires a JS engine to 
 # be installed. Just install nodejs for now. There
 # may be lighter solutions than including all of nodejs
 include_recipe 'nodejs'
+
+include_recipe 'rails'
+include_recipe 'passenger_apache2'
+include_recipe 'imagemagick::rmagick'
+include_recipe 'site-app::backup'
 
 ENV['RAILS_ENV'] = node[:site_app][:environment]
 
@@ -40,6 +40,8 @@ execute "install gems" do
   cwd node[:site_app][:root]
   command "#{node[:ruby][:dir]}/bin/bundle install"
 end
+
+include_recipe 'site-app::encryption'
 
 web_app "site" do
   docroot "#{node[:site_app][:root]}/public"

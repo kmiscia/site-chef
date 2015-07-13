@@ -1,0 +1,7 @@
+name             'site-thinking-sphinx'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures site-thinking-sphinx'
+long_description 'Installs/Configures site-thinking-sphinx'
+version          '0.1.0'
