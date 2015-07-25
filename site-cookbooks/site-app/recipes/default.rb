@@ -20,11 +20,11 @@ include_recipe 'site-app::backup'
 ENV['RAILS_ENV'] = node[:site_app][:environment]
 
 directory "/apps/site" do
-  owner 'www-data'
-  group 'www-data'
   mode '0755'
   action :create
   recursive true
+  owner 'www-data'
+  group 'www-data'
 end
 
 git "#{Chef::Config[:file_cache_path]}/site" do
@@ -36,9 +36,12 @@ git "#{Chef::Config[:file_cache_path]}/site" do
   group 'www-data'
 end
 
-execute "install gems" do
+rbenv_execute "bundle install" do
+  user 'www-data'
+  group 'www-data'
   cwd node[:site_app][:root]
-  command "#{node[:ruby][:dir]}/bin/bundle install"
+  command "bundle install"
+  ruby_version '2.1.3'
 end
 
 include_recipe 'site-app::encryption'
@@ -57,24 +60,26 @@ file "#{node[:site_app][:root]}/log/production.log" do
   action :create_if_missing
 end
 
-execute "load db schema" do
-  cwd node[:site_app][:root]
+rbenv_execute "load db schema" do
   user 'www-data'
   group 'www-data'
-  command "#{node[:ruby][:dir]}/bin/bundle exec rake db:schema:load"
+  cwd node[:site_app][:root]
+  command "bundle exec rake db:schema:load"
+  ruby_version '2.1.3'
 end
 
-execute "seed db" do
-  cwd node[:site_app][:root]
+rbenv_execute "seed db" do
   user 'www-data'
   group 'www-data'
-  command "#{node[:ruby][:dir]}/bin/bundle exec rake db:seed"
+  cwd node[:site_app][:root]
+  command "bundle exec rake db:seed"
+  ruby_version '2.1.3'
 end
 
-execute "precompile rails assets" do
-  cwd node[:site_app][:root]
+rbenv_execute "precompile rails assets" do
   user 'www-data'
   group 'www-data'
-  command "#{node[:ruby][:dir]}/bin/bundle exec rake assets:precompile RAILS_ENV=#{ENV['RAILS_ENV']}"
+  cwd node[:site_app][:root]
+  command "bundle exec rake assets:precompile RAILS_ENV=#{ENV['RAILS_ENV']}"
+  ruby_version '2.1.3'
 end
-

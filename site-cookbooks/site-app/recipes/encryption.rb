@@ -12,9 +12,10 @@ file "#{node[:site_app][:root]}/config/encryption/site_production.key" do
   group 'www-data'
 end
 
-execute "decrypt secrets.yml" do
-  cwd node[:site_app][:root]
-  command "#{node[:ruby][:dir]}/bin/bundle exec rake secrets:decrypt"
+rbenv_execute "decrypt secrets" do
   user 'www-data'
   group 'www-data'
+  cwd node[:site_app][:root]
+  command "bundle exec rake secrets:decrypt"
+  ruby_version '2.1.3'
 end
