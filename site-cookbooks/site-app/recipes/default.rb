@@ -37,8 +37,6 @@ git "#{Chef::Config[:file_cache_path]}/site" do
 end
 
 rbenv_execute "bundle install" do
-  user 'www-data'
-  group 'www-data'
   cwd node[:site_app][:root]
   command "bundle install"
   ruby_version '2.1.3'

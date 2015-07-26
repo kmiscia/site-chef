@@ -37,11 +37,12 @@ mysql_service 'sphinx_mysql_service' do
   action [:create, :start]
 end
 
-execute "build the sphinx indexes" do
-  cwd node[:site_app][:root]
+rbenv_execute "build thinking sphinx indexes" do
   user 'www-data'
   group 'www-data'
-  command "#{node[:ruby][:dir]}/bin/bundle exec rake ts:rebuild RAILS_ENV=#{ENV['RAILS_ENV']}"
+  cwd node[:site_app][:root]
+  command "bundle exec rake ts:rebuild RAILS_ENV=#{ENV['RAILS_ENV']}"
+  ruby_version '2.1.3'
 end
 
 include_recipe 'cron'
@@ -49,6 +50,6 @@ include_recipe 'cron'
 cron_d 'reindex_sphinx' do
   minute node[:sphinx][:reindex_minute]
   hour node[:sphinx][:reindex_hour]
-  command "cd #{node[:site_app][:root]} && bundle exec rake ts:rebuild RAILS_ENV=production"
+  command "cd #{node[:site_app][:root]} && bundle exec rake ts:rebuild RAILS_ENV=#{ENV['RAILS_ENV']}"
   user 'www-data'
 end

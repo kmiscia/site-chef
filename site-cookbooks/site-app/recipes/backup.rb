@@ -1,13 +1,15 @@
-execute "install backup" do
-  command "/opt/rbenv/shims/gem install backup"
+rbenv_execute "install backup gem" do
+  command "gem install backup"
+  ruby_version '2.1.3'
 end
 
 # Because the backup gem has one million dependencies that
 # would all be loaded into your apps memory, it's recommended
 # back and it's gems be installed seperately.
-execute "install backup gem" do
-  ['net-scp', 'net-ssh', 'fog', 'excon'].each do |gem_dependency|
-    command "/opt/rbenv/shims/backup dependencies --install #{gem_dependency}"
+['net-scp', 'net-ssh', 'fog', 'excon'].each do |gem_dependency|
+  rbenv_execute "install backup gem dependencies" do
+    command "backup dependencies --install #{gem_dependency}"
+    ruby_version '2.1.3'
   end
 end
 
