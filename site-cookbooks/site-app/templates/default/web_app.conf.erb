@@ -5,7 +5,7 @@
                 Options FollowSymLinks
                 AllowOverride None
         </Directory>
-        <Directory /var/www/site/current>
+        <Directory <%= node[:site_app][:root] %>>
                 Options Indexes FollowSymLinks MultiViews
                 AllowOverride None
                 Order allow,deny
