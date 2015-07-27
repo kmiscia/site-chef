@@ -38,7 +38,7 @@ end
 
 rbenv_execute "bundle install" do
   cwd node[:site_app][:root]
-  command "bundle install"
+  command "bundle install --verbose"
   ruby_version '2.1.3'
 end
 
