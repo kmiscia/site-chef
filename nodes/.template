@@ -5,6 +5,6 @@
     "role[web]"
   ],
   "automatic": {
-    "ipaddress": "52.6.176.158"
+    "ipaddress": "ip_address"
   }
 }
