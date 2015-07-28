@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Current EC2 AMI is t1.micro instance with 15GB Magentic HDD running Ubuntu 12.04
+
 usage() { echo "Usage: $0 [-i <string>] [-k <string>]" 1>&2; exit 1; }
 
 USER=ubuntu
@@ -34,6 +36,7 @@ fi
 
 echo "Cooking $IPADDRESS using keyfile $KEYFILE..."
 
+echo "Uploading encryption keys..."
 ssh -i $KEYFILE $USER@$IPADDRESS "sudo mkdir -p ${REMOTE_ENCRYPTION_KEYS}"
 ssh -i $KEYFILE $USER@$IPADDRESS "sudo chmod 777 ${REMOTE_ENCRYPTION_KEYS}"
 scp -i $KEYFILE $LOCAL_ENCRYPTION_KEYS/* $USER@$IPADDRESS:$REMOTE_ENCRYPTION_KEYS
@@ -47,6 +50,15 @@ else
   ssh -i $KEYFILE $USER@$IPADDRESS "sudo /sbin/swapon ${SWAP_LOCATION}"
 fi
 
+echo "Running knife solo prepare..."
 cd $LOCAL_CHEF_DIR
 bundle exec knife solo prepare $USER@$IPADDRESS -i $KEYFILE
+
+NODE=$LOCAL_CHEF_DIR/nodes/$IPADDRESS.json
+
+echo "Creating node file at ${NODE}"
+cp -f $LOCAL_CHEF_DIR/nodes/.template $NODE
+sed -i "s/ip_address/${IPADDRESS}/" $NODE
+
+echo "Running knife solo cook..."
 bundle exec knife solo cook $USER@$IPADDRESS -i $KEYFILE
