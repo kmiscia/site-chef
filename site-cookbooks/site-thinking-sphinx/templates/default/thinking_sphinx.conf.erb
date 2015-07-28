@@ -1,14 +1,13 @@
-description "Thinking sphinx worker configuration. Run with ID"
+description "Sphinx Upstart Script"
 
-start on (local-filesystems and net-device-up IFACE=eth0)
+start on startup
 stop on shutdown
 
+console output
+
 respawn
-respawn limit 5 20
 
 script
-  PIDFILE=/var/run/thinking_sphinx.pid
-  echo $$ > $PIDFILE
-  chown www-data:www-data $PIDFILE
-  exec su -c "cd <%= node[:site_app][:root] %> && /opt/rbenv/shims/bundle exec rake ts:start RAILS_ENV=production && /opt/rbenv/shims/bundle exec rake ts:rebuild RAILS_ENV=production >> /var/log/thinking_sphinx.log 2>&1" www-data
+    env RAILS_ENV=production
+    exec sudo -u www-data -i /usr/local/bin/searchd --config <%= node[:site_app][:root] %>/config/production.sphinx.conf --nodetach
 end script
