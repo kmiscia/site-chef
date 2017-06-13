@@ -10,11 +10,11 @@
 include_recipe "rbenv::default"
 include_recipe "rbenv::ruby_build"
 
-rbenv_ruby "2.1.3" do
-  ruby_version "2.1.3"
+rbenv_ruby "2.3.0" do
+  ruby_version "2.3.0"
   global true
 end
 
 rbenv_gem "bundler" do
-  ruby_version "2.1.3"
+  ruby_version "2.3.0"
 end

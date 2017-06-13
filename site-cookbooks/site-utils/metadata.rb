@@ -6,5 +6,5 @@ description      'Installs/Configures site-utils'
 long_description 'Installs/Configures site-utils'
 version          '0.1.0'
 
+depends 'git', '~> 6.0.0'
 depends 'build-essential', '~> 2.2.3'
-depends 'git'

@@ -7,12 +7,12 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# Some dependency/process requires a JS engine to 
+# Some dependency/process requires a JS engine to
 # be installed. Just install nodejs for now. There
 # may be lighter solutions than including all of nodejs
 include_recipe 'nodejs'
 
-include_recipe 'rails'
+#include_recipe 'rails'
 include_recipe 'passenger_apache2'
 include_recipe 'imagemagick::rmagick'
 include_recipe 'site-app::backup'
@@ -39,7 +39,7 @@ end
 rbenv_execute "bundle install" do
   cwd node[:site_app][:root]
   command "bundle install --verbose"
-  ruby_version '2.1.3'
+  ruby_version '2.3.0'
 end
 
 include_recipe 'site-app::encryption'
@@ -63,7 +63,7 @@ rbenv_execute "load db schema" do
   group 'www-data'
   cwd node[:site_app][:root]
   command "bundle exec rake db:schema:load"
-  ruby_version '2.1.3'
+  ruby_version '2.3.0'
 end
 
 rbenv_execute "seed db" do
@@ -71,7 +71,7 @@ rbenv_execute "seed db" do
   group 'www-data'
   cwd node[:site_app][:root]
   command "bundle exec rake db:seed"
-  ruby_version '2.1.3'
+  ruby_version '2.3.0'
 end
 
 rbenv_execute "precompile rails assets" do
@@ -79,5 +79,5 @@ rbenv_execute "precompile rails assets" do
   group 'www-data'
   cwd node[:site_app][:root]
   command "bundle exec rake assets:precompile RAILS_ENV=#{ENV['RAILS_ENV']}"
-  ruby_version '2.1.3'
+  ruby_version '2.3.0'
 end

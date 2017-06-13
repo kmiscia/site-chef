@@ -1,6 +1,6 @@
 rbenv_execute "install backup gem" do
   command "gem install backup"
-  ruby_version '2.1.3'
+  ruby_version '2.3.0'
 end
 
 # Because the backup gem has one million dependencies that
@@ -9,7 +9,7 @@ end
 ['net-scp', 'net-ssh', 'fog', 'excon'].each do |gem_dependency|
   rbenv_execute "install backup gem dependencies" do
     command "backup dependencies --install #{gem_dependency}"
-    ruby_version '2.1.3'
+    ruby_version '2.3.0'
   end
 end
 

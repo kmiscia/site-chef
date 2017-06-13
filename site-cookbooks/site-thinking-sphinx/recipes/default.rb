@@ -42,7 +42,7 @@ rbenv_execute "build thinking sphinx indexes" do
   group 'www-data'
   cwd node[:site_app][:root]
   command "bundle exec rake ts:rebuild RAILS_ENV=#{ENV['RAILS_ENV']}"
-  ruby_version '2.1.3'
+  ruby_version '2.3.0'
 end
 
 include_recipe 'cron'

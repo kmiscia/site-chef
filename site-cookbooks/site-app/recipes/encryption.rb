@@ -17,5 +17,5 @@ rbenv_execute "decrypt secrets" do
   group 'www-data'
   cwd node[:site_app][:root]
   command "bundle exec rake secrets:decrypt"
-  ruby_version '2.1.3'
+  ruby_version '2.3.0'
 end

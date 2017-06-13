@@ -50,9 +50,11 @@ else
   ssh -i $KEYFILE $USER@$IPADDRESS "sudo /sbin/swapon ${SWAP_LOCATION}"
 fi
 
+ssh -i $KEYFILE $USER@$IPADDRESS "sudo apt-get install libgmp3-dev"
+
 echo "Running knife solo prepare..."
 cd $LOCAL_CHEF_DIR
-bundle exec knife solo prepare $USER@$IPADDRESS -i $KEYFILE
+bundle exec knife solo prepare $USER@$IPADDRESS -i $KEYFILE --bootstrap-version 12.20.3
 
 NODE=$LOCAL_CHEF_DIR/nodes/$IPADDRESS.json
 
