@@ -9,5 +9,5 @@ respawn
 
 script
     env RAILS_ENV=production
-    exec sudo -u www-data -i /usr/local/bin/searchd --config <%= node[:site_app][:root] %>/config/production.sphinx.conf --nodetach
+    exec sudo -i /usr/local/bin/searchd --config <%= node[:site_app][:root] %>/config/production.sphinx.conf --nodetach
 end script
